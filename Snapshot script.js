@@ -2,6 +2,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { Octokit } = require('@octokit/rest');
+const cron = require('node-cron');
 
 // Set up GitHub credentials
 const octokit = new Octokit({
@@ -63,5 +64,14 @@ nodes.forEach(node => {
         console.error(`Error uploading snapshot of ${node.name} to GitHub: ${error.message}`);
       });
     }
+    // Schedule snapshots every 4 hours
+cron.schedule('0 */4 * * *', () => {
+  console.log('Taking snapshots...');
+
+  // Take snapshots for each node
+  nodes.forEach(node => {
+    // ...
+  });
+});
   });
 });
