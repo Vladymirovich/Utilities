@@ -64,14 +64,14 @@ nodes.forEach(node => {
         console.error(`Error uploading snapshot of ${node.name} to GitHub: ${error.message}`);
       });
     }
-    // Schedule snapshots every 4 hours
+  });
+});
+// Schedule snapshots every 4 hours
 cron.schedule('0 */4 * * *', () => {
   console.log('Taking snapshots...');
 
   // Take snapshots for each node
   nodes.forEach(node => {
     // ...
-  });
-});
   });
 });
