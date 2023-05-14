@@ -5,13 +5,11 @@ const { Octokit } = require('@octokit/rest');
 const cron = require('node-cron');
 
 // Set up GitHub credentials
-const token = process.env.GITHUB_TOKEN;
-console.log(`Token: ${token}`);
-
 const octokit = new Octokit({
- auth: {
-  token: token
- }
+  auth: {
+    username: "Vladymirovich",
+    password: "1328Qa798_33"
+  }
 });
 
 // Define snapshot directory path
