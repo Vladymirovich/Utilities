@@ -6,7 +6,7 @@ const cron = require('node-cron');
 
 // Set up GitHub credentials
 const token = process.env.GITHUB_TOKEN;
-console.log(`Token: ${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}`);
+console.log(`Token: ${token}`);
 
 const octokit = new Octokit({
  auth: {
