@@ -21,15 +21,15 @@ if (!fs.existsSync(snapshotDir)) {
 
 // Define nodes to take snapshots of
 const nodes = [
-  { name: 'Andromeda', ipAddress: '144.76.164.139', port: process.env.PORT_ANDROMEDA },
-  { name: 'Cascadia', ipAddress: '144.76.164.139', port: process.env.CASCADIA_PORT },
-  { name: 'Defund', ipAddress: '144.76.164.139', port: process.env.DEFUND_PORT },
-  { name: 'Dymension', ipAddress: '144.76.164.139', port: process.env.DYMENSION_PORT },
-  { name: 'Gitopia', ipAddress: '144.76.164.139', port: process.env.GITOPIA_PORT },
-  { name: 'Lava Network', ipAddress: '144.76.164.139', port: process.env.PORT_LAVA },
-  { name: 'Nibiru', ipAddress: '144.76.164.139', port: process.env.NIBIRU_PORT },
-  { name: 'Nolus', ipAddress: '144.76.164.139', port: process.env.NOLUS_PORT },
-  { name: 'Ojo', ipAddress: '144.76.164.139', port: process.env.PORT_OJO }
+  { name: 'Andromeda', ipAddress: '144.76.164.139', port: process.env.PORT_ANDROMEDA, dataPath: '/root/.andromedad/data' },
+  { name: 'Cascadia', ipAddress: '144.76.164.139', port: process.env.CASCADIA_PORT, dataPath: '/root/.cascadia/data' },
+  { name: 'Defund', ipAddress: '144.76.164.139', port: process.env.DEFUND_PORT, dataPath: '/root/.defund/data' },
+  { name: 'Dymension', ipAddress: '144.76.164.139', port: process.env.DYMENSION_PORT, dataPath: '/root/.dymension/data' },
+  { name: 'Gitopia', ipAddress: '144.76.164.139', port: process.env.GITOPIA_PORT, dataPath: '/root/.gitopia/data' },
+  { name: 'Lava Network', ipAddress: '144.76.164.139', port: process.env.PORT_LAVA, dataPath: '/root/.lava/data' },
+  { name: 'Nibiru', ipAddress: '144.76.164.139', port: process.env.NIBIRU_PORT, dataPath: '/root/.nibiru/data' },
+  { name: 'Nolus', ipAddress: '144.76.164.139', port: process.env.NOLUS_PORT, dataPath: '/root/.nolus/data' },
+  { name: 'Ojo', ipAddress: '144.76.164.139', port: process.env.PORT_OJO, dataPath: '/root/.ojo/data' }
 ];
 
 console.log(`Nodes: ${JSON.stringify(nodes)}`);
@@ -45,7 +45,7 @@ nodes.forEach(node => {
   const snapshotFilePath = path.join(snapshotDir, snapshotFileName);
 
   // Command to take a snapshot of the node
-  const snapshotCommand = `tar -zcvf ${snapshotFilePath} /path/to/node/data --exclude=node/data/cache`;
+  const snapshotCommand = `tar -zcvf ${snapshotFilePath} ${node.dataPath} --exclude=${node.dataPath}/cache`;
 
   // Execute snapshot command
   exec(snapshotCommand, (error, stdout, stderr) => {
