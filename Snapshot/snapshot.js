@@ -7,9 +7,7 @@ const cron = require('node-cron');
 // Set up GitHub credentials
 const octokit = new Octokit({
   auth: {
-    username: 'your-username',
-    password: 'your-password',
-    token: 'your-token'
+    token: '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'
   }
 });
 
@@ -23,16 +21,18 @@ if (!fs.existsSync(snapshotDir)) {
 
 // Define nodes to take snapshots of
 const nodes = [
-  { name: 'Andromeda', ipAddress: '10.0.0.1' },
-  { name: 'Cascadia', ipAddress: '10.0.0.2' },
-  { name: 'Defund', ipAddress: '10.0.0.3' },
-  { name: 'Dymension', ipAddress: '10.0.0.4' },
-  { name: 'Gitopia', ipAddress: '10.0.0.5' },
-  { name: 'Lava Network', ipAddress: '10.0.0.6' },
-  { name: 'Nibiru', ipAddress: '10.0.0.7' },
-  { name: 'Nolus', ipAddress: '10.0.0.8' },
-  { name: 'Ojo', ipAddress: '10.0.0.9' }
+  { name: 'Andromeda', ipAddress: '144.76.164.139', port: process.env.PORT_ANDROMEDA },
+  { name: 'Cascadia', ipAddress: '144.76.164.139', port: process.env.CASCADIA_PORT },
+  { name: 'Defund', ipAddress: '144.76.164.139', port: process.env.DEFUND_PORT },
+  { name: 'Dymension', ipAddress: '144.76.164.139', port: process.env.DYMENSION_PORT },
+  { name: 'Gitopia', ipAddress: '144.76.164.139', port: process.env.GITOPIA_PORT },
+  { name: 'Lava Network', ipAddress: '144.76.164.139', port: process.env.PORT_LAVA },
+  { name: 'Nibiru', ipAddress: '144.76.164.139', port: process.env.NIBIRU_PORT },
+  { name: 'Nolus', ipAddress: '144.76.164.139', port: process.env.NOLUS_PORT },
+  { name: 'Ojo', ipAddress: '144.76.164.139', port: process.env.PORT_OJO }
 ];
+
+console.log(`Nodes: ${JSON.stringify(nodes)}`);
 
 // Schedule snapshots every 4 hours
 cron.schedule('0 */4 * * *', () => {
@@ -58,9 +58,9 @@ nodes.forEach(node => {
       const fileContent = fs.readFileSync(snapshotFilePath);
 
       octokit.repos.createOrUpdateFileContents({
-        owner: 'your-github-username',
-        repo: 'your-github-repo',
-        path: `snapshots/${snapshotFileName}`,
+        owner: 'Vladymirovich',
+        repo: 'Utilities',
+        path: `Snapshot/${snapshotFileName}`,
         message: `Add snapshot of ${node.name}`,
         content: fileContent.toString('base64'),
       }).then(() => {
