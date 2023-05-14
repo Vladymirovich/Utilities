@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { Octokit } = require('@octokit/rest');
+const { Octokit } = require("@octokit/core");
 const cron = require('node-cron');
 
 // Set up GitHub credentials
